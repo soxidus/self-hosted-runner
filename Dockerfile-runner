@@ -1,0 +1,11 @@
+FROM ubuntu:20.04
+
+RUN apt-get update && \
+    apt-get install -y curl && \
+    curl -sSL https://github.com/actions/runner/releases/download/v2.283.3/actions-runner-linux-x64-2.283.3.tar.gz | tar -xz && \
+    ./bin/installdependencies.sh
+
+WORKDIR /runner
+COPY entrypoint.sh .
+
+ENTRYPOINT ["/runner/entrypoint.sh"]
